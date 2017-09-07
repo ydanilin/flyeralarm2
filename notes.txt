@@ -1,0 +1,19 @@
+
+create new project:
+activate environment
+scrapy startproject <name>
+
+configure PyCharm
+1. Project interpreter
+2. Run/debug configs:
+name="Run_main"
+Script name
+    C:/Program Files (x86)/Miniconda2/envs/tomik/Lib/site-packages/scrapy/cmdline.py
+Arguments: crawl try_splash
+Open command prompt afterwards
+
+put utils.lua in vagrant machine shared directory
+
+cd /usr/bin
+python3 -m splash.server -v0 --disable-private-mode --lua-sandbox-allowed-modules "utils" --lua-package-path "/vagrant/?.lua"
+TODO: --filters-path=FILTERS_PATH
