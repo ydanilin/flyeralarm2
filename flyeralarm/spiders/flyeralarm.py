@@ -29,4 +29,12 @@ class FlyerSpider(SupplierSpider):
                              args=args)
 
     def parse_item(self, response):
-        pass
+        if response.data.get('isGroup'):
+            group = response.xpath('//section[@id="openPage"]//div[@class="row"]//a')
+            for article in group:
+                yield self._follow_item(response, article)
+        else:
+            huj = response.data
+            for item in self.parse_product(response):
+                # TODO add sku: sku = re.search(r'\d+', url)
+                yield item
