@@ -1,4 +1,5 @@
 local utils = require("utils")
+local treat = require("treat")
 
 function scrape_product(splash)
     if not splash:start() then
@@ -15,6 +16,7 @@ function scrape_product(splash)
         return output
     end
     -- continue if it is a product
+    splash:set_viewport_full()
     local isProduct = splash:select("div#shopWrapper")
     if isProduct then
         local product = {}
@@ -23,30 +25,13 @@ function scrape_product(splash)
         --product.output = walk_attribs(splash, {})
         local prodBody = splash:select("div#configuratorContent")
         if prodBody then
-            local attrs = walk_attribs(splash, {})
---            local aName = prodBody:querySelector("h3"):text()
---            local statuss = "not yet"
---            if string.find(aName, "delivery") then
---                statuss = "last"
---            end
-            output.attrs = attrs
+            local ok, attrs = splash:with_timeout(
+                function()
+                    return walk_attribs(splash, {})
+                end,
+                40)
+            product.parameters = treat.as_array(attrs)
         end
---        local attrs = {}
---        local cAttr = splash:select("div#currentAttribute")
---        if cAttr then
---            local aName = cAttr:querySelector("div#selectedAttributeHeader"):text()
---            attrs[#attrs+1] = aName
---            local statuss = string.find(aName, "Delivery")
---            if not statuss then
---                statuss = "huj"
---            end
---        end
---        return {
---            cookies=splash:get_cookies(),
---            html = splash:html(),
---            --har=splash:har(),
---            product = product,
---            attrs = attrs}
         output.product = product
     end
     return output
@@ -61,34 +46,31 @@ function walk_attribs(splash, attrs)
     end
     local cAttr = splash:select("div#currentAttribute")
     if cAttr then
-        attrs[#attrs+1] = aName
+        -- attr values here
+        local valDivs = assert(cAttr:querySelectorAll("div.attributeValueName, div.attributeValueListNameText"))
+        local values = collect_values(valDivs)
+        -- attr name and data here
+        local clickTag = cAttr:querySelector("div.attributeValue, div.attributeValueListName.cursor")
+        local jsProcTxt = clickTag.attributes.onclick
+        attrs[#attrs+1] = {name = aName, values = values, data = jsProcTxt }
         -- do click
-        assert(cAttr:querySelector("div.attributeValue"):mouse_click())
-        return walk_attribs(splash, attrs)
-    else
-        return attrs
+        local ok, reason = clickTag:mouse_click()
+        splash:wait(2)
+        if ok then
+            return walk_attribs(splash, attrs)
+        end
     end
+    return attrs
 end
 
 
-function parse_attrib(splash)
-    local output = {}
-    local cAttr = splash:select("div#currentAttribute")
-    if cAttr then
-        local aName = cAttr:querySelector("div#selectedAttributeHeader"):text()
-        output.name = aName
-        if string.find(aName, "Delivery") then
-            output.lastGroup = true
-        end
-        --local values = cAttr
-        local aValues = cAttr:querySelectorAll("div#attributeValues div.attributeValueContainer")
-        local huj
-        for _, v in pairs(aValues) do
-            huj = v:querySelector("div.attributeValueName"):text()
-        end
-        output.huj = huj
-        return output
+function collect_values(valDivs)
+    local values = {}
+    for k, value in pairs(valDivs) do
+        local click = value.parentElement.attributes.onclick
+        values[#values+1] = {name=value:text(), data=click}
     end
+    return values
 end
 
 

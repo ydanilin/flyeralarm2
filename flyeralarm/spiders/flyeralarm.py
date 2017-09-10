@@ -22,10 +22,12 @@ class FlyerSpider(SupplierSpider):
             return
         args = {
             'lua_source': self.product_script,
-            'proxy': self.proxy
+            'proxy': self.proxy,
+            'timeout': 60
         }
         return SplashRequest(response.urljoin(href), self.parse_item,
-                             endpoint='execute', cache_args=['lua_source'],
+                             endpoint='execute',
+                             cache_args=['lua_source'],
                              args=args)
 
     def parse_item(self, response):

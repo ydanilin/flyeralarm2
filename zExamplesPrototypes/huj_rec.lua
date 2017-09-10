@@ -25,35 +25,26 @@ function walk_attribs(splash, attrs)
         attrs[#attrs+1] = "delivery"
         return attrs
     end
-    --if string.find(aName, "umber") then
-    --    attrs[#attrs+1] = "recursia bilatt"
-    --    return attrs
-    --end
-    --attrs[#attrs+1] = aName
     local cAttr = splash:select("div#currentAttribute")
-    assert(cAttr)
     if cAttr then
-     -- attr values here
-        valDivs = assert(cAttr:querySelectorAll("div.attributeValueName, div.attributeValueListNameText"))   
+
+        -- attr values here
+        local valDivs = assert(cAttr:querySelectorAll("div.attributeValueName, div.attributeValueListNameText"))
         local values = {}
         for k, value in pairs(valDivs) do
-            values[#values+1] = value:text()
+            local click = value.parentElement.attributes.onclick
+            values[#values+1] = {name=value:text(), data=click}
         end
-        attrs[#attrs+1] = {name = aName, values = values}
-        ok, reason = cAttr:querySelector("div.attributeValue, div.attributeValueListName.cursor"):mouse_click()
+
+        local clickTag = cAttr:querySelector("div.attributeValue, div.attributeValueListName.cursor")
+        local jsProcTxt = clickTag.attributes.onclick
+        attrs[#attrs+1] = {name = aName, values = values, data = jsProcTxt }
+        -- do click
+        local ok, reason = clickTag:mouse_click()
         splash:wait(2)
-        return walk_attribs(splash, attrs)
-        --local t = splash:select("div#configuratorContent h3"):text()
-        --attrs[#attrs+1] = t
-        --attrs[#attrs+1] = ok
-        --attrs[#attrs+1] = reason
-        --attrs[#attrs+1] = h
-        --return walk_attribs(splash, attrs)
+        if ok then
+            return walk_attribs(splash, attrs)
+        end
     end
     return attrs
-end
-
-
-function walk_values(splash, values)
-
 end
