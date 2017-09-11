@@ -1,0 +1,113 @@
+[
+  {
+    "name": "Zippo",
+    "URL": "https://www.flyeralarm.com/uk/shop/configurator/index/id/6599/zippo.html"
+  },
+  {
+    "name": "1.\n            Colour",
+    "data": "selectShoppingCartAttribute('6599', '4370', '21628');",
+    "supplier_product": "Zippo"
+  },
+  {
+    "name": "silver brushed",
+    "supplier_parameter": "1.\n            Colour",
+    "data": "selectShoppingCartAttribute('6599', '4370', '21628');",
+    "supplier_product": "Zippo"
+  },
+  {
+    "name": "black, gold engraved",
+    "supplier_parameter": "1.\n            Colour",
+    "data": "selectShoppingCartAttribute('6599', '4370', '21629');",
+    "supplier_product": "Zippo"
+  },
+  {
+    "name": "black, silver engraving",
+    "supplier_parameter": "1.\n            Colour",
+    "data": "selectShoppingCartAttribute('6599', '4370', '21630');",
+    "supplier_product": "Zippo"
+  },
+  {
+    "name": "delivery",
+    "data": "",
+    "supplier_product": "Zippo"
+  },
+  {
+    "name": "Badge clips with holder",
+    "URL": "https://www.flyeralarm.com/uk/shop/configurator/index/id/5661/badge-clips-with-holder.html"
+  },
+  {
+    "name": "1.\n            Format",
+    "data": "selectShoppingCartAttribute('5661', '1391', '6292');",
+    "supplier_product": "Badge clips with holder"
+  },
+  {
+    "name": "Portrait",
+    "supplier_parameter": "1.\n            Format",
+    "data": "selectShoppingCartAttribute('5661', '1391', '6292');",
+    "supplier_product": "Badge clips with holder"
+  },
+  {
+    "name": "Landscape",
+    "supplier_parameter": "1.\n            Format",
+    "data": "selectShoppingCartAttribute('5661', '1391', '6293');",
+    "supplier_product": "Badge clips with holder"
+  },
+  {
+    "name": "delivery",
+    "data": "",
+    "supplier_product": "Badge clips with holder"
+  },
+  {
+    "name": "Badge holders",
+    "URL": "https://www.flyeralarm.com/uk/shop/configurator/index/id/5663/badge-holders.html"
+  },
+  {
+    "name": "1.\n            Format",
+    "data": "selectShoppingCartAttribute('5663', '1392', '6294');",
+    "supplier_product": "Badge holders"
+  },
+  {
+    "name": "Portrait",
+    "supplier_parameter": "1.\n            Format",
+    "data": "selectShoppingCartAttribute('5663', '1392', '6294');",
+    "supplier_product": "Badge holders"
+  },
+  {
+    "name": "Landscape",
+    "supplier_parameter": "1.\n            Format",
+    "data": "selectShoppingCartAttribute('5663', '1392', '6295');",
+    "supplier_product": "Badge holders"
+  },
+  {
+    "name": "delivery",
+    "data": "",
+    "supplier_product": "Badge holders"
+  },
+  {
+    "name": "Badge clips",
+    "URL": "https://www.flyeralarm.com/uk/shop/configurator/index/id/5662/badge-clips.html"
+  },
+  {
+    "name": "delivery",
+    "data": "",
+    "supplier_product": "Badge clips"
+  },
+  {
+    "name": "Retractable card holders",
+    "URL": "https://www.flyeralarm.com/uk/shop/configurator/index/id/5664/retractable-card-holders.html"
+  },
+  {
+    "name": "delivery",
+    "data": "",
+    "supplier_product": "Retractable card holders"
+  },
+  {
+    "name": "Protection strips for desk pads A2",
+    "URL": "https://www.flyeralarm.com/uk/shop/configurator/index/id/302/protection-strips-for-desk-pads-a2.html"
+  },
+  {
+    "name": "delivery",
+    "data": "",
+    "supplier_product": "Protection strips for desk pads A2"
+  }
+]

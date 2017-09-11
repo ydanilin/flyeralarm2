@@ -6,7 +6,6 @@ function scrape_product(splash)
         return ""
     end
     splash.resource_timeout = 10.0
-    -- splash:set_viewport_full()
     local output = {html=splash:html(),
                     cookies=splash:get_cookies()}
     -- check if it is a group and exit
@@ -41,7 +40,7 @@ end
 function walk_attribs(splash, attrs)
     local aName = splash:select("div#configuratorContent h3"):text()
     if string.find(aName, "delivery") then
-        attrs[#attrs+1] = "delivery"
+        attrs[#attrs+1] = {name = "delivery", data = "" }
         return attrs
     end
     local cAttr = splash:select("div#currentAttribute")
@@ -52,7 +51,7 @@ function walk_attribs(splash, attrs)
         -- attr name and data here
         local clickTag = cAttr:querySelector("div.attributeValue, div.attributeValueListName.cursor")
         local jsProcTxt = clickTag.attributes.onclick
-        attrs[#attrs+1] = {name = aName, values = values, data = jsProcTxt }
+        attrs[#attrs+1] = {name = aName, values = values, data = jsProcTxt}
         -- do click
         local ok, reason = clickTag:mouse_click()
         splash:wait(2)
