@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import scrapy_splash
 
 # Scrapy settings for flyeralarm project
 #
@@ -18,6 +19,7 @@ NEWSPIDER_MODULE = 'flyeralarm.spiders'
 SPLASH_URL = 'http://localhost:8050'
 DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
+SPLASH_SLOT_POLICY = scrapy_splash.SlotPolicy.SCRAPY_DEFAULT
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'flyeralarm (+http://www.yourdomain.com)'
@@ -72,7 +74,14 @@ DOWNLOADER_MIDDLEWARES = {
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'flyeralarm.pipelines.FlyeralarmPipeline': 300,
+   'flyeralarm.pipelines.ThumbnailPipeline': 400
 }
+
+# files pipeline settings
+FILES_STORE = '/tmp'
+FILES_URLS_FIELD = 'thumbnail_url'
+FILES_RESULT_FIELD = 'thumbnail_file'
+MEDIA_ALLOW_REDIRECTS = True
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

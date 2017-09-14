@@ -5,6 +5,11 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import re
+import os
+from scrapy.http import Request
+from scrapy.pipelines.files import FilesPipeline
+from scrapy.utils.project import get_project_settings
+from urllib.parse import urlparse, urljoin
 
 
 class FlyeralarmPipeline(object):
@@ -70,3 +75,15 @@ class FlyeralarmPipeline(object):
         if l > 2:
             a2 = output[2]
         return a0, a1, a2
+
+
+class ThumbnailPipeline(FilesPipeline):
+    def get_media_requests(self, item, info):
+        itType = type(item).__name__.lower()
+        if itType == 'supplierproductitem':
+            proxy = get_project_settings().get('PROXY', os.getenv('PROXY'))
+            URL = urlparse(item['URL'])
+            baseURL = URL.scheme + '://' + URL.netloc
+            return [Request(urljoin(baseURL, ''.join(x.split())),
+                            meta={'proxy': proxy}) for x in
+                    item.get(self.files_urls_field, []) if x and x != 'none']

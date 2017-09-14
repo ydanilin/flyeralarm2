@@ -17,3 +17,9 @@ put utils.lua in vagrant machine shared directory
 cd /usr/bin
 python3 -m splash.server -v0 --disable-private-mode --lua-sandbox-allowed-modules "utils" --lua-package-path "/vagrant/?.lua"
 TODO: --filters-path=FILTERS_PATH
+
+Table attribs at:
+https://www.flyeralarm.com/uk/shop/configurator/index/id/137
+
+Stupid min/max structure at:
+https://www.flyeralarm.com/uk/shop/configurator/index/id/5633
